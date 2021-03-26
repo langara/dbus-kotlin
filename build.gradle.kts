@@ -1,11 +1,13 @@
 plugins {
-    kotlin("multiplatform") version "1.4.21"
+    kotlin("multiplatform") version Vers.kotlin
 }
 
-group = "pl.mareklangiewicz"
-version = "1.0-SNAPSHOT"
+group = Konf.group
+version = Konf.verStr
 
 repositories {
+    google()
+    maven(Repos.jitpack)
     mavenCentral()
 }
 
@@ -20,12 +22,19 @@ kotlin {
         }
     }
     sourceSets {
-        val jvmMain by getting
+        val jvmMain by getting {
+            dependencies {
+                implementation(Deps.dbusJava)
+                implementation(Deps.dbusJavaUtils)
+//                implementation(Deps.dbusJavaOsgi)
+            }
+        }
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit5"))
-                implementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
+                implementation(Deps.junit5)
+                runtimeOnly(Deps.junit5engine)
+                runtimeOnly(Deps.uspek)
             }
         }
     }
