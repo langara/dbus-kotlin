@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Assertions.*
 import pl.mareklangiewicz.dbuskotlin.dbusMutterIntro
 import kotlin.test.Ignore
 
+
+// TODO later: move all generated interfaces to separate gradle modules (libs) like dbus-kotlin-gnome, etc..
+
 internal class DBusKotlinGenerator {
 
-    @Ignore
     @Test
     fun dbusGenerateSomeMutterStuff() {
         InterfaceCodeGenerator.main(arrayOf(
@@ -16,7 +18,7 @@ internal class DBusKotlinGenerator {
             "--session",
 //        "--enable-dtd-validation",
             "--outputDir",
-            "../src/jvmMain/java",
+            "../dbus-kotlin/src/jvmMain/java",
         ))
 
     }
