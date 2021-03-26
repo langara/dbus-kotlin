@@ -9,3 +9,4 @@ pluginManagement {
 
 rootProject.name = "dbus-kotlin" // should always be kept the same as Konf.name
 
+include(":dbus-kotlin")
