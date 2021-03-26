@@ -11,6 +11,7 @@ import kotlin.test.Ignore
 internal class DBusKotlinGenerator {
 
     @Test
+    @Ignore
     fun dbusGenerateSomeMutterStuff() {
         InterfaceCodeGenerator.main(arrayOf(
             "org.gnome.Mutter.DisplayConfig",
