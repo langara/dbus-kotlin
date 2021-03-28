@@ -2,7 +2,7 @@ import org.freedesktop.dbus.*
 import org.freedesktop.dbus.types.*
 import org.gnome.Mutter.DisplayConfig.*
 
-val kotlinStruct = Sextuple(
+private val kotlinStruct = Sextuple(
     UInt32(9),
     listOf(
         Struct1(

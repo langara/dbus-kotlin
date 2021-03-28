@@ -3,10 +3,13 @@ package pl.mareklangiewicz.dbuskotlin
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import org.freedesktop.IScreenSaver
 import org.freedesktop.dbus.Struct
 import org.freedesktop.dbus.Tuple
 import org.freedesktop.dbus.connections.AbstractConnection
 import org.freedesktop.dbus.connections.impl.DBusConnection
+import org.freedesktop.dbus.connections.impl.DBusConnection.DBusBusType.SESSION
+import org.freedesktop.dbus.connections.impl.DBusConnection.DBusBusType.SYSTEM
 import org.freedesktop.dbus.exceptions.DBusExecutionException
 import org.freedesktop.dbus.interfaces.CallbackHandler
 import org.freedesktop.dbus.interfaces.DBusInterface
@@ -25,16 +28,18 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.declaredMemberProperties
 
-fun dbusMutterIntro(): String {
-    val conn = DBusConnection.getConnection(DBusConnection.DBusBusType.SESSION)
-    val introspectable = conn.getRemoteObject(
-        "org.gnome.Mutter.DisplayConfig",
-        "/org/gnome/Mutter/DisplayConfig",
-        Introspectable::class.java
-    )
-    val xml = introspectable.Introspect()
-    return xml
-}
+fun dbusConnect(system: Boolean = false): DBusConnection = DBusConnection.getConnection(if (system) SYSTEM else SESSION)
+
+fun dbusDefaultObjPath(busName: String) = "/" + busName.replace('.', '/')
+
+inline fun <reified T: DBusInterface> DBusConnection.getRO(
+    busName: String,
+    objPath: String = dbusDefaultObjPath(busName)
+): T = getRemoteObject(busName, objPath, T::class.java)
+
+fun dbusMutterIntro() = dbusConnect().getRO<Introspectable>("org.gnome.Mutter.DisplayConfig").Introspect()
+
+fun dbusScreenSaver() = dbusConnect().getRO<IScreenSaver>("org.freedesktop.ScreenSaver")
 
 suspend fun <R> AbstractConnection.dbusCall(obj: DBusInterface, method: String, vararg params: Any): R =
     withContext(IO) {
@@ -48,29 +53,18 @@ suspend fun <R> AbstractConnection.dbusCall(obj: DBusInterface, method: String, 
     }
 
 fun dbusMutterGetResources(): Any {
-    val conn = DBusConnection.getConnection(DBusConnection.DBusBusType.SESSION)
-    val config = conn.getRemoteObject(
-        "org.gnome.Mutter.DisplayConfig",
-        "/org/gnome/Mutter/DisplayConfig",
-        IDisplayConfig::class.java
-    )
-    val resources = config.GetResources()
-    return resources
+    val config = dbusConnect().getRO<IDisplayConfig>("org.gnome.Mutter.DisplayConfig")
+    return config.GetResources()
 }
 
-fun dbusMutterGetResourcesByHand(): String {
-    val conn = DBusConnection.getConnection(DBusConnection.DBusBusType.SESSION)
-    val interf = conn.getRemoteObject(
-        "org.gnome.Mutter.DisplayConfig",
-        "/org/gnome/Mutter/DisplayConfig",
-        IDisplayConfig::class.java
-    )
-    val resources = runBlocking { conn.dbusCall<Any>(interf, "GetResources") }
-    return resources.toString()
+fun dbusMutterGetResourcesByHand(): Any { // FIXME: does not work - rethink dynamic calls (without code generation)
+    val connect = dbusConnect()
+    val interf = connect.getRO<DBusInterface>("org.gnome.Mutter.DisplayConfig")
+    return runBlocking { connect.dbusCall<Any>(interf, "GetResources") }
 }
 
 fun dbusApplyMyBothMonitorsConfig() {
-    val conn = DBusConnection.getConnection(DBusConnection.DBusBusType.SESSION)
+    val conn = DBusConnection.getConnection(SESSION)
     val config = conn.getRemoteObject(
         "org.gnome.Mutter.DisplayConfig",
         "/org/gnome/Mutter/DisplayConfig",

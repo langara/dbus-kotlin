@@ -1,6 +1,7 @@
 import org.freedesktop.dbus.utils.bin.CreateInterface
 import org.freedesktop.dbus.utils.generator.InterfaceCodeGenerator
 import org.junit.jupiter.api.Test
+import pl.mareklangiewicz.dbuskotlin.dbusDefaultObjPath
 import java.io.File
 import kotlin.test.Ignore
 import kotlin.test.fail
@@ -12,7 +13,7 @@ internal class DBusKotlinGenerator {
 
     fun dbusCreateInterface(
         busName: String,
-        objectPath: String = "/" + busName.replace('.', '/'),
+        objectPath: String = dbusDefaultObjPath(busName),
         systemBus: Boolean = false
     ) {
         val outputDir = File(objectPath.trimStart('/'))
@@ -21,8 +22,13 @@ internal class DBusKotlinGenerator {
         // TODO_later: implement own code generation in kotlin. Both CreateInterface and InterfaceCodeGenerator are broken
     }
 
+    @Ignore
     @Test
     fun dbusCreateInterfaceMutterDisplayConfig() = dbusCreateInterface("org.gnome.Mutter.DisplayConfig")
+
+    @Ignore
+    @Test
+    fun dbusCreateInterfaceScreenSaver() = dbusCreateInterface("org.freedesktop.ScreenSaver")
 
     @Ignore
     @Test
