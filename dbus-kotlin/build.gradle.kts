@@ -19,6 +19,7 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
+                implementation(Deps.kotlinReflect)
                 implementation(Deps.kotlinxCoroutinesCore)
                 implementation(Deps.dbusJava)
 //                implementation(Deps.dbusJavaOsgi)

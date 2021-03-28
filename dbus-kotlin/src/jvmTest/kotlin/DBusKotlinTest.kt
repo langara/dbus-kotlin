@@ -1,10 +1,10 @@
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
 import pl.mareklangiewicz.dbuskotlin.dbusApplyMyBothMonitorsConfig
 import pl.mareklangiewicz.dbuskotlin.dbusMutterGetResources
 import pl.mareklangiewicz.dbuskotlin.dbusMutterIntro
-import kotlin.test.Ignore
+import pl.mareklangiewicz.dbuskotlin.toKotlinStruct
+import java.io.File
 
 internal class DBusKotlinTest {
 
@@ -16,7 +16,17 @@ internal class DBusKotlinTest {
 
     @Test
     fun dbusMutterGetResourcesTest() {
-        dbusMutterGetResources()
+        val res = dbusMutterGetResources()
+        val kotlinStruct = res.toKotlinStruct()
+        println(kotlinStruct)
+        val path = "../dbus-kotlin/src/jvmMain/kotlin"
+        File(path).mkdirs()
+        File("$path/Experiment.kt").writeText("""
+            import org.freedesktop.dbus.*
+            import org.freedesktop.dbus.types.*
+            import org.gnome.Mutter.DisplayConfig.*
+            
+            val kotlinStruct = $kotlinStruct""".trimIndent())
     }
 
     @Test
