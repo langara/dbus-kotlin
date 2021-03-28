@@ -15,8 +15,8 @@ import org.freedesktop.dbus.types.UInt16
 import org.freedesktop.dbus.types.UInt32
 import org.freedesktop.dbus.types.UInt64
 import org.freedesktop.dbus.types.Variant
-import org.gnome.Mutter.DisplayConfig.Struct8
-import org.gnome.Mutter.DisplayConfig.Struct9
+import org.gnome.Mutter.DisplayConfig.MonitorConfStruct
+import org.gnome.Mutter.DisplayConfig.MonitorStruct
 import org.gnome.Mutter.IDisplayConfig
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -27,7 +27,11 @@ import kotlin.reflect.full.declaredMemberProperties
 
 fun dbusMutterIntro(): String {
     val conn = DBusConnection.getConnection(DBusConnection.DBusBusType.SESSION)
-    val introspectable = conn.getRemoteObject("org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig", Introspectable::class.java)
+    val introspectable = conn.getRemoteObject(
+        "org.gnome.Mutter.DisplayConfig",
+        "/org/gnome/Mutter/DisplayConfig",
+        Introspectable::class.java
+    )
     val xml = introspectable.Introspect()
     return xml
 }
@@ -45,60 +49,57 @@ suspend fun <R> AbstractConnection.dbusCall(obj: DBusInterface, method: String, 
 
 fun dbusMutterGetResources(): Any {
     val conn = DBusConnection.getConnection(DBusConnection.DBusBusType.SESSION)
-    val config = conn.getRemoteObject("org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig", IDisplayConfig::class.java)
+    val config = conn.getRemoteObject(
+        "org.gnome.Mutter.DisplayConfig",
+        "/org/gnome/Mutter/DisplayConfig",
+        IDisplayConfig::class.java
+    )
     val resources = config.GetResources()
     return resources
 }
 
 fun dbusMutterGetResourcesByHand(): String {
     val conn = DBusConnection.getConnection(DBusConnection.DBusBusType.SESSION)
-    val interf = conn.getRemoteObject("org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig", IDisplayConfig::class.java)
+    val interf = conn.getRemoteObject(
+        "org.gnome.Mutter.DisplayConfig",
+        "/org/gnome/Mutter/DisplayConfig",
+        IDisplayConfig::class.java
+    )
     val resources = runBlocking { conn.dbusCall<Any>(interf, "GetResources") }
     return resources.toString()
 }
 
 fun dbusApplyMyBothMonitorsConfig() {
     val conn = DBusConnection.getConnection(DBusConnection.DBusBusType.SESSION)
-    val config = conn.getRemoteObject("org.gnome.Mutter.DisplayConfig", "/org/gnome/Mutter/DisplayConfig", IDisplayConfig::class.java)
-    // FIXME: I get this from Bustle app:
-    //  (
-    //      uint32 17,
-    //      uint32 2,
-    //      [
-    //          (
-    //              346, 1440, 1.0, uint32 0, false,
-    //              [
-    //                  (
-    //                      'eDP-1', '1920x1080@59.999324798583984',
-    //                      { 'underscanning': <false> }
-//                      )
-//                  ]
-//              ),
-//              (
-//                  0, 0, 1.0, 0, true,
-//                  [
-//                      (
-//                          'DP-2', '2560x1440@59.950550079345703',
-//                          {'underscanning': <false>}
-//                      )
-//                  ]
-//              )
-//          ],
-//          @a{sv} {}
-//      )0
-    // TODO: translate it to kotlin below...
+    val config = conn.getRemoteObject(
+        "org.gnome.Mutter.DisplayConfig",
+        "/org/gnome/Mutter/DisplayConfig",
+        IDisplayConfig::class.java
+    )
+    val configurationSerial = config.GetResources().a
     config.ApplyMonitorsConfig(
-        UInt32(17), UInt32(2), listOf(
-            Struct8(346, 1440, 1.0, UInt32(0), false, listOf(
-                Struct9("eDP-1", "1920x1080@59.999324798583984", mapOf(
-                    "underscanning" to Variant(false)
-                )))
+        configurationSerial, // configuration serial
+        UInt32(2), // configuration method (2:persistent)
+        listOf(
+            // logical monitors
+            MonitorConfStruct(
+                0, 0, 1.0, UInt32(0), true, listOf(
+                    MonitorStruct(
+                        "DP-2", "2560x1440@59.950550079345703", mapOf(
+                            "underscanning" to Variant(false)
+                        )
+                    )
+                )
             ),
-            Struct8(0, 0, 1.0, UInt32(0), true, listOf(
-                Struct9("DP-2", "2560x1440@59.950550079345703", mapOf(
-                    "underscanning" to Variant(false)
-                )))
-            )
+            MonitorConfStruct(
+                267, 1440, 1.0, UInt32(0), false, listOf(
+                    MonitorStruct(
+                        "eDP-1", "1920x1080@59.999324798583984", mapOf(
+                            "underscanning" to Variant(false)
+                        )
+                    )
+                )
+            ),
         ),
         mapOf()
     )

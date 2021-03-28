@@ -5,7 +5,7 @@ import org.freedesktop.dbus.Struct;
 import org.freedesktop.dbus.annotations.Position;
 import org.freedesktop.dbus.types.UInt32;
 import org.freedesktop.dbus.types.Variant;
-import org.gnome.Mutter.DisplayConfig.*;
+
 public final class Struct7 extends Struct
 {
    @Position(0)
@@ -19,10 +19,10 @@ public final class Struct7 extends Struct
    @Position(4)
    public final boolean e;
    @Position(5)
-   public final List<Struct9> f;
+   public final List<MonitorStruct> f;
    @Position(6)
    public final Map<CharSequence,Variant> g;
-  public Struct7(int a, int b, double c, UInt32 d, boolean e, List<Struct9> f, Map<CharSequence,Variant> g)
+  public Struct7(int a, int b, double c, UInt32 d, boolean e, List<MonitorStruct> f, Map<CharSequence,Variant> g)
   {
    this.a = a;
    this.b = b;

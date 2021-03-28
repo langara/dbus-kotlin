@@ -31,6 +31,6 @@ public interface IDisplayConfig extends DBusInterface
   public Triplet<List<UInt16>, List<UInt16>, List<UInt16>> GetCrtcGamma(UInt32 serial, UInt32 crtc);
   public void SetCrtcGamma(UInt32 serial, UInt32 crtc, List<UInt16> red, List<UInt16> green, List<UInt16> blue);
   public Quad<UInt32, List<Struct6>, List<Struct7>, Map<CharSequence,Variant>> GetCurrentState();
-  public void ApplyMonitorsConfig(UInt32 serial, UInt32 method, List<Struct8> logical_monitors, Map<CharSequence,Variant> properties);
+  public void ApplyMonitorsConfig(UInt32 serial, UInt32 method, List<MonitorConfStruct> logical_monitors, Map<CharSequence,Variant> properties);
 
 }
