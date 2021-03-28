@@ -14,6 +14,7 @@ import org.freedesktop.dbus.exceptions.DBusExecutionException
 import org.freedesktop.dbus.interfaces.CallbackHandler
 import org.freedesktop.dbus.interfaces.DBusInterface
 import org.freedesktop.dbus.interfaces.Introspectable
+import org.freedesktop.dbus.interfaces.Properties
 import org.freedesktop.dbus.types.UInt16
 import org.freedesktop.dbus.types.UInt32
 import org.freedesktop.dbus.types.UInt64
@@ -40,6 +41,13 @@ inline fun <reified T: DBusInterface> DBusConnection.getRO(
 fun dbusMutterIntro() = dbusConnect().getRO<Introspectable>("org.gnome.Mutter.DisplayConfig").Introspect()
 
 fun dbusScreenSaver() = dbusConnect().getRO<IScreenSaver>("org.freedesktop.ScreenSaver")
+
+fun dbusNetworkManagerProperties() = dbusConnect(system = true).getRO<Properties>("org.freedesktop.NetworkManager")
+
+fun dbusNetworkManagerWifi(enable: Boolean) {
+    dbusNetworkManagerProperties().Set("org.freedesktop.NetworkManager", "WirelessEnabled", enable)
+}
+
 
 suspend fun <R> AbstractConnection.dbusCall(obj: DBusInterface, method: String, vararg params: Any): R =
     withContext(IO) {

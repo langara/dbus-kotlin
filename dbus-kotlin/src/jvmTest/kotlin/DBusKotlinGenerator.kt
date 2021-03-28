@@ -30,6 +30,9 @@ internal class DBusKotlinGenerator {
     @Test
     fun dbusCreateInterfaceScreenSaver() = dbusCreateInterface("org.freedesktop.ScreenSaver")
 
+    @Test
+    fun dbusCreateInterfaceNetworkManager() = dbusCreateInterface("org.freedesktop.NetworkManager", systemBus = true)
+
     @Ignore
     @Test
     fun dbusGenerateSomeMutterStuff() { // Broken: InterfaceCodeGenerator does not create correct tupples as return values

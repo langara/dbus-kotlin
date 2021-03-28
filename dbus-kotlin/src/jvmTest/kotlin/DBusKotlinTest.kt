@@ -3,8 +3,9 @@ import org.junit.jupiter.api.Test
 
 import pl.mareklangiewicz.dbuskotlin.dbusApplyMyBothMonitorsConfig
 import pl.mareklangiewicz.dbuskotlin.dbusMutterGetResources
-import pl.mareklangiewicz.dbuskotlin.dbusMutterGetResourcesByHand
 import pl.mareklangiewicz.dbuskotlin.dbusMutterIntro
+import pl.mareklangiewicz.dbuskotlin.dbusNetworkManagerProperties
+import pl.mareklangiewicz.dbuskotlin.dbusNetworkManagerWifi
 import pl.mareklangiewicz.dbuskotlin.dbusScreenSaver
 import pl.mareklangiewicz.dbuskotlin.toKotlinStruct
 import java.io.File
@@ -17,6 +18,17 @@ internal class DBusKotlinTest {
         val xml = dbusMutterIntro()
         println(xml)
     }
+
+    @Ignore
+    @Test
+    fun dbusNetworkManagerPropertiesTest() {
+        val props = dbusNetworkManagerProperties().GetAll("org.freedesktop.NetworkManager")
+        println(props.toString())
+    }
+
+    @Ignore
+    @Test
+    fun dbusNetworkManagerWifiEnableTest() = dbusNetworkManagerWifi(true)
 
     @Ignore
     @Test
