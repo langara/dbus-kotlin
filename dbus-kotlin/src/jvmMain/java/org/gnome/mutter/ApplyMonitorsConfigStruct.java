@@ -20,15 +20,15 @@ public class ApplyMonitorsConfigStruct extends Struct {
     @Position(4)
     private final boolean member4;
     @Position(5)
-    private final List member5;
+    private final List<MyLocalMonitorStruct> localMonitors;
 
-    public ApplyMonitorsConfigStruct(int member0, int member1, double member2, UInt32 member3, boolean member4, List member5) {
+    public ApplyMonitorsConfigStruct(int member0, int member1, double member2, UInt32 member3, boolean member4, List<MyLocalMonitorStruct> localMonitors) {
         this.member0 = member0;
         this.member1 = member1;
         this.member2 = member2;
         this.member3 = member3;
         this.member4 = member4;
-        this.member5 = member5;
+        this.localMonitors = localMonitors;
     }
 
 
@@ -52,8 +52,8 @@ public class ApplyMonitorsConfigStruct extends Struct {
         return member4;
     }
 
-    public List getMember5() {
-        return member5;
+    public List<MyLocalMonitorStruct> getLocalMonitors() {
+        return localMonitors;
     }
 
 

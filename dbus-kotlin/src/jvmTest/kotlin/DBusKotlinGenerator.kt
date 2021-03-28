@@ -10,12 +10,13 @@ import kotlin.test.Ignore
 
 internal class DBusKotlinGenerator {
 
-    @Test
     @Ignore
+    @Test
     fun dbusGenerateSomeMutterStuff() {
         InterfaceCodeGenerator.main(arrayOf(
             "org.gnome.Mutter.DisplayConfig",
             "/org/gnome/Mutter/DisplayConfig",
+//            "--system",
             "--session",
 //        "--enable-dtd-validation",
             "--outputDir",
