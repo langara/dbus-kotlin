@@ -6,6 +6,7 @@ import kotlinx.coroutines.withContext
 import org.freedesktop.IScreenSaver
 import org.freedesktop.dbus.Struct
 import org.freedesktop.dbus.Tuple
+import org.freedesktop.dbus.bin.DBusDaemon
 import org.freedesktop.dbus.connections.AbstractConnection
 import org.freedesktop.dbus.connections.impl.DBusConnection
 import org.freedesktop.dbus.connections.impl.DBusConnection.DBusBusType.SESSION
@@ -138,3 +139,5 @@ fun <T : Any> T.getPublicPropsVals(): List<Any?> {
         .filter { it.visibility == KVisibility.PUBLIC }
         .map { it(this) }
 }
+
+fun dbusDaemonMain(vararg args: String) = DBusDaemon.main(args)

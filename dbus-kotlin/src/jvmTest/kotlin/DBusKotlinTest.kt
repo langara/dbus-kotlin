@@ -1,7 +1,9 @@
+import org.freedesktop.dbus.bin.DBusDaemon
 import kotlin.test.Ignore
 import org.junit.jupiter.api.Test
 
 import pl.mareklangiewicz.dbuskotlin.dbusApplyMyBothMonitorsConfig
+import pl.mareklangiewicz.dbuskotlin.dbusDaemonMain
 import pl.mareklangiewicz.dbuskotlin.dbusMutterGetResources
 import pl.mareklangiewicz.dbuskotlin.dbusMutterIntro
 import pl.mareklangiewicz.dbuskotlin.dbusNetworkManagerProperties
@@ -66,5 +68,14 @@ internal class DBusKotlinTest {
     @Test
     fun dbusMutterApplyBothMonitorsConfigTest() {
         dbusApplyMyBothMonitorsConfig()
+    }
+
+    @Ignore
+    @Test
+    fun dbusDaemonTest() {
+        dbusDaemonMain(
+            "--tcp",
+            "--print-address",
+        )
     }
 }
