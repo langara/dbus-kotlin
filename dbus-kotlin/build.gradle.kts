@@ -13,7 +13,9 @@ kotlin {
         }
         withJava()
         testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
+            useJUnitPlatform {
+                if (System.getenv("JITPACK") != null) excludeTags("integration")
+            }
         }
     }
     sourceSets {

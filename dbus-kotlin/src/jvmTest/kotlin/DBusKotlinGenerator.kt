@@ -1,5 +1,6 @@
 import org.freedesktop.dbus.utils.bin.CreateInterface
 import org.freedesktop.dbus.utils.generator.InterfaceCodeGenerator
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import pl.mareklangiewicz.dbuskotlin.dbusDefaultObjPath
 import java.io.File
@@ -9,6 +10,7 @@ import kotlin.test.fail
 
 // TODO later: move all generated interfaces to separate gradle modules (libs) like dbus-kotlin-gnome, etc..
 
+@Tag("integration")
 internal class DBusKotlinGenerator {
 
     fun dbusCreateInterface(
@@ -22,18 +24,15 @@ internal class DBusKotlinGenerator {
         // TODO_later: implement own code generation in kotlin. Both CreateInterface and InterfaceCodeGenerator are broken
     }
 
-    @Ignore
     @Test
     fun dbusCreateInterfaceMutterDisplayConfig() = dbusCreateInterface("org.gnome.Mutter.DisplayConfig")
 
-    @Ignore
     @Test
     fun dbusCreateInterfaceScreenSaver() = dbusCreateInterface("org.freedesktop.ScreenSaver")
 
     @Test
     fun dbusCreateInterfaceNetworkManager() = dbusCreateInterface("org.freedesktop.NetworkManager", systemBus = true)
 
-    @Ignore
     @Test
     fun dbusGenerateSomeMutterStuff() { // Broken: InterfaceCodeGenerator does not create correct tupples as return values
         InterfaceCodeGenerator.main(

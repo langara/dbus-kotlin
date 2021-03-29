@@ -1,4 +1,5 @@
 import org.freedesktop.dbus.bin.DBusDaemon
+import org.junit.jupiter.api.Tag
 import kotlin.test.Ignore
 import org.junit.jupiter.api.Test
 
@@ -12,42 +13,36 @@ import pl.mareklangiewicz.dbuskotlin.dbusScreenSaver
 import pl.mareklangiewicz.dbuskotlin.toKotlinStruct
 import java.io.File
 
+@Tag("integration")
 internal class DBusKotlinTest {
 
-    @Ignore
     @Test
     fun dbusMutterIntroTest() {
         val xml = dbusMutterIntro()
         println(xml)
     }
 
-    @Ignore
     @Test
     fun dbusNetworkManagerPropertiesTest() {
         val props = dbusNetworkManagerProperties().GetAll("org.freedesktop.NetworkManager")
         println(props.toString())
     }
 
-    @Ignore
     @Test
     fun dbusNetworkManagerWifiEnableTest() = dbusNetworkManagerWifi(true)
 
-    @Ignore
     @Test
     fun dbusScreenSaverLockTest() = dbusScreenSaver().Lock()
     // Error: this method is not implemented..
 
-    @Ignore
     @Test
     fun dbusScreenSaverSetActiveTest() { dbusScreenSaver().SetActive(true) }
     // Error: this method is not implemented..
 
-    @Ignore
     @Test
     fun dbusScreenSaverGetSessionIdleTime() { println("session idle time: ${dbusScreenSaver().GetSessionIdleTime()}") }
     // Error: this method is not implemented..
 
-    @Ignore
     @Test
     fun dbusMutterGetResourcesTest() {
         val res = dbusMutterGetResources()
@@ -64,13 +59,11 @@ internal class DBusKotlinTest {
             private val kotlinStruct = $kotlinStruct""".trimIndent())
     }
 
-    @Ignore
     @Test
     fun dbusMutterApplyBothMonitorsConfigTest() {
         dbusApplyMyBothMonitorsConfig()
     }
 
-    @Ignore
     @Test
     fun dbusDaemonTest() {
         dbusDaemonMain(
