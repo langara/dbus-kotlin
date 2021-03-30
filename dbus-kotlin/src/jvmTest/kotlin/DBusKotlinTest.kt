@@ -8,6 +8,7 @@ import pl.mareklangiewicz.dbuskotlin.dbusMutterIntro
 import pl.mareklangiewicz.dbuskotlin.dbusNetworkManagerProperties
 import pl.mareklangiewicz.dbuskotlin.dbusNetworkManagerWifi
 import pl.mareklangiewicz.dbuskotlin.dbusScreenSaver
+import pl.mareklangiewicz.dbuskotlin.getInet4Addresses
 import pl.mareklangiewicz.dbuskotlin.toKotlinStruct
 import java.io.File
 
@@ -68,5 +69,10 @@ internal class DBusKotlinTest {
             "--tcp",
             "--print-address",
         )
+    }
+
+    @Test
+    fun getInet4AddressesTest() {
+        println(getInet4Addresses())
     }
 }

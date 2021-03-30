@@ -23,6 +23,10 @@ import org.freedesktop.dbus.types.Variant
 import org.gnome.Mutter.DisplayConfig.MonitorConfStruct
 import org.gnome.Mutter.DisplayConfig.MonitorStruct
 import org.gnome.Mutter.IDisplayConfig
+import java.net.Inet4Address
+import java.net.NetworkInterface
+import java.util.stream.Collectors
+import java.util.stream.Stream
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -141,3 +145,14 @@ fun <T : Any> T.getPublicPropsVals(): List<Any?> {
 }
 
 fun dbusDaemonMain(vararg args: String) = DBusDaemon.main(args)
+
+//fun <T> Stream<T>.collectToList(): List<T> = collect(Collectors.toList())
+//
+//fun getInet4AddressesNewNonAndroid(): List<String> = NetworkInterface.networkInterfaces().collectToList()
+//    .map { it.inetAddresses().collectToList().filterIsInstance<Inet4Address>()
+//}.flatten().map { it.hostAddress }
+//
+fun getInet4Addresses(): List<String> = NetworkInterface.getNetworkInterfaces().toList()
+    .map { it.inetAddresses.toList().filterIsInstance<Inet4Address>()
+    }.flatten().map { it.hostAddress }
+
