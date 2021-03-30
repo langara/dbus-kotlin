@@ -25,6 +25,10 @@ kotlin {
                 implementation(Deps.kotlinxCoroutinesCore)
                 implementation(Deps.dbusJava)
 //                implementation(Deps.dbusJavaOsgi)
+
+                implementation(Deps.slf4jSimple)
+//                implementation(Deps.log4j2api)
+//                implementation(Deps.log4j2core)
             }
         }
         val jvmTest by getting {

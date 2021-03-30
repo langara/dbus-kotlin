@@ -1,6 +1,4 @@
-import org.freedesktop.dbus.bin.DBusDaemon
 import org.junit.jupiter.api.Tag
-import kotlin.test.Ignore
 import org.junit.jupiter.api.Test
 
 import pl.mareklangiewicz.dbuskotlin.dbusApplyMyBothMonitorsConfig
