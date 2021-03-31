@@ -1,15 +1,7 @@
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import pl.mareklangiewicz.dbuskotlin.*
 
-import pl.mareklangiewicz.dbuskotlin.dbusApplyMyBothMonitorsConfig
-import pl.mareklangiewicz.dbuskotlin.dbusDaemonMain
-import pl.mareklangiewicz.dbuskotlin.dbusMutterGetResources
-import pl.mareklangiewicz.dbuskotlin.dbusMutterIntro
-import pl.mareklangiewicz.dbuskotlin.dbusNetworkManagerProperties
-import pl.mareklangiewicz.dbuskotlin.dbusNetworkManagerWifi
-import pl.mareklangiewicz.dbuskotlin.dbusScreenSaver
-import pl.mareklangiewicz.dbuskotlin.getInet4Addresses
-import pl.mareklangiewicz.dbuskotlin.toKotlinStruct
 import java.io.File
 
 @Tag("integration")
@@ -74,5 +66,10 @@ internal class DBusKotlinTest {
     @Test
     fun getInet4AddressesTest() {
         println(getInet4Addresses())
+    }
+
+    @Test
+    fun dbusConnectAddrTest() {
+        dbusConnectAddr("tcp:host=192.168.0.13,port=12468", timeout = 300)
     }
 }

@@ -25,8 +25,6 @@ import org.gnome.Mutter.DisplayConfig.MonitorStruct
 import org.gnome.Mutter.IDisplayConfig
 import java.net.Inet4Address
 import java.net.NetworkInterface
-import java.util.stream.Collectors
-import java.util.stream.Stream
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -35,6 +33,13 @@ import kotlin.reflect.KVisibility
 import kotlin.reflect.full.declaredMemberProperties
 
 fun dbusConnect(system: Boolean = false): DBusConnection = DBusConnection.getConnection(if (system) SYSTEM else SESSION)
+
+fun dbusConnectAddr(
+    addr: String,
+    registerSelf: Boolean = true,
+    shared: Boolean = true,
+    timeout: Int = AbstractConnection.TCP_CONNECT_TIMEOUT
+): DBusConnection = DBusConnection.getConnection(addr, registerSelf, shared, timeout)
 
 fun dbusDefaultObjPath(busName: String) = "/" + busName.replace('.', '/')
 
