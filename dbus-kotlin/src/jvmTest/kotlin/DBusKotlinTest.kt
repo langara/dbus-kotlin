@@ -70,6 +70,6 @@ internal class DBusKotlinTest {
 
     @Test
     fun dbusConnectAddrTest() {
-        dbusConnectAddr("tcp:host=192.168.0.13,port=12468", timeout = 300)
+        dbusConnectAddr("tcp:host=192.168.1.35,port=12468", timeout = 300)
     }
 }
