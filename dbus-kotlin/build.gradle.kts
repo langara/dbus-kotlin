@@ -3,13 +3,17 @@ plugins {
     `maven-publish`
 }
 
-group = Konf.group
-version = Konf.verStr
+group = DBusKotlinKonf.group
+version = DBusKotlinKonf.verStr
 
 kotlin {
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions {
+                jvmTarget = "1.8"
+                useIR = true
+            }
         }
         withJava()
         testRuns["test"].executionTask.configure {

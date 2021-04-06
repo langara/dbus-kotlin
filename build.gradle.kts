@@ -9,9 +9,9 @@ buildscript {
     }
 }
 
-version = Konf.verStr
-group = Konf.group
-description = Konf.description
+version = DBusKotlinKonf.verStr
+group = DBusKotlinKonf.group
+description = DBusKotlinKonf.description
 
 allprojects {
     repositories {
