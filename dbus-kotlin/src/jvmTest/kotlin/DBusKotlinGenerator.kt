@@ -43,7 +43,7 @@ internal class DBusKotlinGenerator {
                 "--session",
 //        "--enable-dtd-validation",
                 "--outputDir",
-                "../dbus-kotlin/src/jvmMain/java",
+                "../dbus-kotlin/src/jvmMain/kotlin",
             )
         )
     }

@@ -14,7 +14,6 @@ kotlin {
                 useIR = true
             }
         }
-        withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform {
                 if (System.getenv("JITPACK") != null) excludeTags("integration")
