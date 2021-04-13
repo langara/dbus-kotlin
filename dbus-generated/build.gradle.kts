@@ -1,5 +1,3 @@
-import pl.mareklangiewicz.deps.Deps
-
 plugins {
     java
     id("pl.mareklangiewicz.deps")

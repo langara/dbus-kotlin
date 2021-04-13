@@ -1,5 +1,3 @@
-import pl.mareklangiewicz.deps.*
-
 plugins {
     kotlin("multiplatform") version "1.4.32"
     `maven-publish`
