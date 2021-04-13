@@ -20,8 +20,8 @@ import org.freedesktop.dbus.types.UInt16
 import org.freedesktop.dbus.types.UInt32
 import org.freedesktop.dbus.types.UInt64
 import org.freedesktop.dbus.types.Variant
-import org.gnome.Mutter.DisplayConfig.MonitorConfStruct
-import org.gnome.Mutter.DisplayConfig.MonitorStruct
+import org.gnome.Mutter.DisplayConfig.Struct8
+import org.gnome.Mutter.DisplayConfig.Struct9
 import org.gnome.Mutter.IDisplayConfig
 import java.net.Inet4Address
 import java.net.NetworkInterface
@@ -94,18 +94,18 @@ fun dbusApplyMyBothMonitorsConfig() {
         UInt32(2), // configuration method (2:persistent)
         listOf(
             // logical monitors
-            MonitorConfStruct(
+            Struct8(
                 0, 0, 1.0, UInt32(0), true, listOf(
-                    MonitorStruct(
+                    Struct9(
                         "DP-2", "2560x1440@59.950550079345703", mapOf(
                             "underscanning" to Variant(false)
                         )
                     )
                 )
             ),
-            MonitorConfStruct(
+            Struct8(
                 267, 1440, 1.0, UInt32(0), false, listOf(
-                    MonitorStruct(
+                    Struct9(
                         "eDP-1", "1920x1080@59.999324798583984", mapOf(
                             "underscanning" to Variant(false)
                         )

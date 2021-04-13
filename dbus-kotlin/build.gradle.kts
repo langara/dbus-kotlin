@@ -1,6 +1,9 @@
+import pl.mareklangiewicz.deps.*
+
 plugins {
-    kotlin("multiplatform")
+    kotlin("multiplatform") version "1.4.32"
     `maven-publish`
+    id("pl.mareklangiewicz.deps")
 }
 
 group = DBusKotlinKonf.group
@@ -27,6 +30,7 @@ kotlin {
                 implementation(Deps.kotlinxCoroutinesCore)
                 implementation(Deps.dbusJava)
 //                implementation(Deps.dbusJavaOsgi)
+                implementation(project(":dbus-generated"))
 
                 implementation(Deps.slf4jSimple)
 //                implementation(Deps.log4j2api)

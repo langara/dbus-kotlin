@@ -1,11 +1,14 @@
+import pl.mareklangiewicz.deps.Repos
+
+plugins {
+    id("pl.mareklangiewicz.deps")
+}
+
 buildscript {
     repositories {
         gradlePluginPortal()
         google()
         mavenCentral()
-    }
-    dependencies {
-        classpath(Deps.kotlinGradlePlugin)
     }
 }
 
