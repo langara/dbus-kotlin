@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
         google()
@@ -6,6 +8,7 @@ pluginManagement {
     }
     includeBuild("../deps.kt")
 }
+
 plugins {
     id("pl.mareklangiewicz.deps.settings")
 }
