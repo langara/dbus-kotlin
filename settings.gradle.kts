@@ -5,9 +5,11 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
+    includeBuild("../deps.kt")
 }
-
-includeBuild("../deps.kt")
+plugins {
+    id("pl.mareklangiewicz.deps.settings")
+}
 
 rootProject.name = "dbus-kotlin" // should always be kept the same as Konf.name
 

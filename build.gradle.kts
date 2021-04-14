@@ -1,7 +1,3 @@
-plugins {
-    id("pl.mareklangiewicz.deps")
-}
-
 buildscript {
     repositories {
         gradlePluginPortal()

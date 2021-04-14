@@ -1,7 +1,6 @@
 plugins {
     kotlin("multiplatform") version "1.4.32"
     `maven-publish`
-    id("pl.mareklangiewicz.deps")
 }
 
 group = DBusKotlinKonf.group
