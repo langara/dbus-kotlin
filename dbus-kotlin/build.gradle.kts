@@ -1,10 +1,11 @@
 plugins {
-    kotlin("multiplatform") version "1.4.32"
+    kotlin("multiplatform") version Vers.kotlin
     `maven-publish`
 }
 
-group = DBusKotlinKonf.group
 version = DBusKotlinKonf.verStr
+group = DBusKotlinKonf.group
+description = DBusKotlinKonf.description
 
 kotlin {
     jvm {

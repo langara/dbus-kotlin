@@ -13,7 +13,7 @@ plugins {
     id("pl.mareklangiewicz.deps.settings")
 }
 
-rootProject.name = "dbus-kotlin" // should always be kept the same as Konf.name
+rootProject.name = "dbus-kotlin" // should always be kept the same as DBusKotlinKonf.name
 
 include(":dbus-kotlin")
 include(":dbus-generated")

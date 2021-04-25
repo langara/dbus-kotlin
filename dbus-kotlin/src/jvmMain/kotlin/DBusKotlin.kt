@@ -82,12 +82,7 @@ fun dbusMutterGetResourcesByHand(): Any { // FIXME: does not work - rethink dyna
 }
 
 fun dbusApplyMyBothMonitorsConfig() {
-    val conn = DBusConnection.getConnection(SESSION)
-    val config = conn.getRemoteObject(
-        "org.gnome.Mutter.DisplayConfig",
-        "/org/gnome/Mutter/DisplayConfig",
-        IDisplayConfig::class.java
-    )
+    val config = dbusConnect().getRO<IDisplayConfig>("org.gnome.Mutter.DisplayConfig")
     val configurationSerial = config.GetResources().a
     config.ApplyMonitorsConfig(
         configurationSerial, // configuration serial
