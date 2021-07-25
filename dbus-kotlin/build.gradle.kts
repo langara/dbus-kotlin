@@ -12,7 +12,7 @@ kotlin {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "1.8"
-                useIR = true
+                freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
             }
         }
         testRuns["test"].executionTask.configure {
